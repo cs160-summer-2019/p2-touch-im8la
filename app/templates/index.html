@@ -85,6 +85,66 @@
 	</div>
 	<script>
 	  // your solution here
+    
+    // implement all gestures on all small boxes example
+//     $('.small-box').each(function() {
+//       var mc = new Hammer(this);
+      
+//       mc.on('tap', function(ev) {
+//         alert("tapped");
+//       });
+      
+//       mc.on('press',function(ev) {
+//         alert("pressed");
+//       });
+//     });
+    
+    var rotateBox = document.getElementById("rotate-box");
+    var mc = new Hammer.Manager(rotateBox);
+    var rotate = new Hammer.Rotate();
+    mc.add([rotate]);
+    mc.get('rotate').set({ enable: true }); // rotation is by default disabled
+    mc.on("rotate", function(ev) {
+      rotateBox.textContent = Math.round(ev.rotation);
+      rotateBox.style.transform("rotate(" + Math.round(ev.rotation) + "deg)");
+    });
+    
+
+    var pinchBox = document.getElementById("pinch-box");
+    var mc = new Hammer.Manager(pinchBox);
+    var pinch = new Hammer.Pinch();
+    mc.add([pinch]);
+    mc.get('pinch').set({ enable: true });  // pinch is by default disabled
+    mc.on("pinchin", function(ev) {
+      pinchBox.textContent = "Zoom out"
+    });
+    mc.on("pinchout", function(ev) {
+      pinchBox.textContent = "Zoom in"
+    });
+    
+    var pressBox = document.getElementById("press-box");
+    var mc = new Hammer(pressBox);
+    mc.on("press", function(ev) {
+      alert("pressed");
+    });
+    
+    var panBox = document.getElementById("pan-box");
+    var mc = new Hammer(panBox);
+    mc.on("panleft panright", function(ev) {
+      panBox.textContent = ev.type;
+    });
+    
+    var tapBox = document.getElementById("tap-box");
+    var mc = new Hammer(tapBox);
+    mc.on("tap", function(ev) {
+      alert("tapped");
+    });
+    
+    var swipeBox = document.getElementById("swipe-box");
+    var mc = new Hammer(swipeBox);
+    mc.on("swipeleft swiperight", function(ev) {
+      swipeBox.textContent = ev.type;
+    });
   </script>
 </body>
 </html>
